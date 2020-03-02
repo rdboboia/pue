@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 
-public interface DaysAndProbsCalculator {
+public interface DaysAndPercentageCalculator {
 
 	public static long getDifferenceInDays(Temporal temporal1Inclusive, Temporal temporal2Exclusive) {
 		return ChronoUnit.DAYS.between(temporal1Inclusive, temporal2Exclusive);
@@ -15,11 +15,11 @@ public interface DaysAndProbsCalculator {
 		return ChronoUnit.DAYS.between(temporal1Inclusive, LocalDate.now(Clock.systemDefaultZone()));
 	}
 
-	public static float getCurrentProbability(Temporal temporal1Inclusive, Temporal temporal2Exclusive) {
+	public static float getCurrentPercentage(Temporal temporal1Inclusive, Temporal temporal2Exclusive) {
 		long startEndDifference = ChronoUnit.DAYS.between(temporal1Inclusive, temporal2Exclusive);
 		long currentDifference = ChronoUnit.DAYS.between(LocalDate.now(Clock.systemDefaultZone()), temporal2Exclusive);
 		
-		return (startEndDifference - currentDifference) / (float)startEndDifference;
+		return ((startEndDifference - currentDifference) / (float)startEndDifference) * 100;
 	}
 
 }
